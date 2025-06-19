@@ -26,7 +26,9 @@ Download the xios3 version with
 Setup your arch files (one for the environment (.env), another for the compiler (.fcm) and a last one for the path (.path) ):
 - cd arch to see examples of what this file looks like e.g. arch/arch-ifort_MESOIPSL.*
 - Then you compile XIOS (cd .. to *yourxiosdirname*) referring to your set of arch files (example here for ifort_MESOIPSL):
+
 `./make_xios --arch ifort_MESOIPSL --full --prod --job 8`
+
 - Now cd .. back to your workdir
 
 XIOS3 is now compiled
