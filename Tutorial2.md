@@ -52,17 +52,17 @@ To set up this experiment, we make a copy of EXP01 from Tutorial 1 by:
 `cp -r EXP01 EXP02_icbcalving`
 
 Then we edit the `namelist_cfg`: 
-- add in the `namberg` section, which should be empty, the following lines:  
-!-----------------------------------------------------------------------
-&namberg       !   iceberg parameters                                   (default: OFF)
+- add in the `namberg` section, which should be empty, the following lines:    
+!-----------------------------------------------------------------------  
+&namberg       !   iceberg parameters                                   (default: OFF)  
 !-----------------------------------------------------------------------
    ln_icebergs = .true.      ! activate iceberg floats (force =F with "key_agrif")  
-   ln_use_calving          = .true. ! Use calving data even when nn_test_icebergs > 0  
-   rn_speed_limit          = 0.      ! CFL speed limit for a berg (safe value is 0.4, see #2581)    
-   cn_dir      = './'      !  root directory for the calving data location
-   !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!  
-   !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !  
-   !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !  
+   ln_use_calving          = .true. ! Use calving data even when nn_test_icebergs > 0    
+   rn_speed_limit          = 0.      ! CFL speed limit for a berg (safe value is 0.4, see #2581)       
+   cn_dir      = './'      !  root directory for the calving data location  
+   !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!    
+   !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !    
+   !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !    
    sn_icb     =  'calving_example'              ,         -1.        ,'calvingmask',  .true.   , .true. , 'yearly'  , ''               , ''       , ''
 /
 
