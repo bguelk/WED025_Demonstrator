@@ -28,7 +28,7 @@ The file can be dowloaded with
 
 Download the XIOS3 version with
 
-`svn co (http://forge.ipsl.jussieu.fr/ioserver/svn/XIOS3/trunk) <YOURXIOSDIRECTORY>`
+`svn co http://forge.ipsl.jussieu.fr/ioserver/svn/XIOS3/trunk <YOURXIOSDIRECTORY>`
 
 Setup your arch files (one for the environment (.env), another for the compiler (.fcm) and a last one for the path (.path) ):
 - cd arch to see examples of what this file looks like e.g. arch/arch-ifort_MESOIPSL.*.
