@@ -5,17 +5,22 @@ title: Tutorial 1
 # Tutorial 1 - Run WED025 in version 5.0.1
 
 ## 1. Prerequisities
+- Access to an HPC with at least 32 cores available
 - Netcdf package installed on your HPC
 - XIOS package installed on your HPC
 - An arch file for your HPC (this just sets paths to XIOS, netcdf and the compiling option which depends on your compiler)
 - Python installed on your HPC or personal computer (for analysis and preparation of iceberg calving file)
+- Knowledge to submit a script to the batch scheduler of your HPC
+- Knowledge on how to run a programme on multicores (at least 32)
 
 ## 2. Provided:
 - Topography, coordinates, boundary conditions, ocean and sea ice initial conditions, runoff and atmospheric forcing.
 - Namelist to build the domain_cfg.nc file from the topography and coordinates file adapted to the demonstrator.
  
-All the needed files can be found here: (https://zenodo.org/records/6817000) in the file:  
-WED025_demonstrator_forcings.tar.zip
+All the needed files can be found [here](https://zenodo.org/records/6817000) in the file: `WED025_demonstrator_forcings.tar.zip`
+
+The file can be dowloaded with
+`wget https://zenodo.org/records/6817000/files/WED025_demonstrator_forcings.tar.zip`
 
 ## 3. Set up the configuration
 
@@ -26,10 +31,11 @@ Download the XIOS3 version with
 `svn co (http://forge.ipsl.jussieu.fr/ioserver/svn/XIOS3/trunk) <YOURXIOSDIRECTORY>`
 
 Setup your arch files (one for the environment (.env), another for the compiler (.fcm) and a last one for the path (.path) ):
-- cd arch to see examples of what this file looks like e.g. arch/arch-ifort_MESOIPSL.*
-- Then you compile XIOS (cd .. to `<YOURXIOSDIRECTORY>`) referring to your set of arch files (example here for ifort_MESOIPSL):
+- cd arch to see examples of what this file looks like e.g. arch/arch-ifort_MESOIPSL.*.
+- setup your arch files (`arch/arch-MY_COMPUTER.*`) depending of your environement, compiler and computer.
+- Then you compile XIOS (cd .. to `<YOURXIOSDIRECTORY>`) referring to your set of arch files:
 
-`./make_xios --arch ifort_MESOIPSL --full --prod --job 8`
+`./make_xios --arch MY_COMPUTER --full --prod --job 8`
 
 - Now cd .. back to your workdir
 
@@ -39,14 +45,14 @@ XIOS3 is now compiled
 
 Download NEMO version 5.0.1 by:
 
-`git clone --branch 5.0.1 (https://forge.nemo-ocean.eu/nemo/nemo.git) <YOURNEMODIRECTORY>`
+`git clone --branch 5.0.1 https://forge.nemo-ocean.eu/nemo/nemo.git <YOURNEMODIRECTORY>`
 
-After successfully downloading, add your arch file under `<YOURNEMODIRECTORY>/arch` and link in arch-*.fcm in %XIOS_HOME the path to `<YOURXIOSDIRECTORY>`.
+After successfully downloading, add your arch file (`arch/arch-MY_COMPUTER.fcm`) under `<YOURNEMODIRECTORY>/arch` and set up the correct path for netcdf, HDF5 and XIOS (%NCDF_HOME, %HDF5_HOME and %XIOS_HOME). Examples are available in the directory `arch`
 
 Now, you can start compiling the configuration based on the reference configuration WED025, as we use XIOS3 the keys in the compilation need to be changed. The new configuration is called ‘WED025_dem’.
 To compile WED025_dem run the following line (ifort_SPIRIT is the used arch file):
 
-`./makenemo -m ifort_SPIRIT -r WED025 -n WED025_dem -j 8 --add_key key_xios3`
+`./makenemo -m MY_COMPUTER -r WED025 -n WED025_dem -j 8 --add_key key_xios3`
 
 Now the configuration is compiled.
 
@@ -58,7 +64,7 @@ To create a `domain_cfg.nc` file, the DOMAINcfg tool can be used. Therefore, thi
 First, go into the NEMO tool directory:
 `cd <YOURNEMODIRECTORY>/tools`
 Then compile the DOMAINcfg tool using the same arch file as in the NEMO compilation (here: ifort_SPIRIT):
-`./maketools -m ifort_SPIRIT -n DOMAINcfg`
+`./maketools -m MY_COMPUTER -n DOMAINcfg`
 
 The DOMAINcfg tool is now compiled.
 
@@ -135,7 +141,7 @@ First, go to your NEMO tool directory
 `cd <YOURNEMODIRECTORY>/tools`
 
 Then compile the tool in a similar way as the DOMAINcfg tool has been compiled and use the same arch file as before:  
-`./maketools -m ifort_SPIRIT -n REBUILD_NEMO`
+`./maketools -m MY_COMPUTER -n REBUILD_NEMO`
 
 After compilation of the REBUILD_NEMO tool, the `domain_cfg_xxxx.nc` can be combined.
 cd to the DOMAIN_WED025 folder, where you have the `domain_cfg_xxxx.nc` files and combine them to one file by:  
@@ -177,12 +183,6 @@ Before the configuration is ready to run, the forcing files and the `domain_cfg.
    sn_i_rnf    = 'WED025_icb'            ,  -1               , 'icb_melt',   .true.    ,.false., 'yearly'  , ''               , ''       , ''  
 /
 ```
-
-
-Now you have everything you need to run your regional configuration.
-For this you need to build a script to run on HPC. We suggest you use 32 MPI.
-Suggestion: look at the supercomputer documentation or copy from a friend.
-
 Before you launch the job, you need to change the last timestep of the simulation (nn_itend) to
 match the length of the simulation you want to do. In this case we will do a one month
 
@@ -208,7 +208,13 @@ This means, in the file` iodef.xml` the following line needs to be:
 and the following line needs to be removed or commented:  
 ` <variable id="oasis_codes_id"            type="string" >oceanx</variable>`
 
-When submitting the run, cpus for NEMO and XIOS3 need to be assigned in a bash-script.
+Now you have everything you need to run your regional configuration.
+For this you need to build a script to run on HPC. We suggest you use 32 MPI.
+Suggestion: look at the supercomputer documentation or copy from a friend.
+
+As XIOS is in detached mode, when submitting the run, cpus for NEMO and XIOS3 need to be assigned in a bash-script.
+Here is an exemple for XXXXX:
+XXXXXX
 
 Now you can submit your job to run the simulation.
 
