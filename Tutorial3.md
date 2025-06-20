@@ -57,3 +57,6 @@ As we just want to do a reproduction of `WED025_dem/EXP02_icbtest` (see Tutorial
 
 As no namelist parameter has to be modified this experiment can be run straight away.
 
+## 3. Compare Results
+
+

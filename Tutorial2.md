@@ -1,6 +1,3 @@
----
-title: Tutorial 2
----
 # Tutorial 2 - Add icebergs to WED025
 
 In this tutorial, it is shown how to add icebergs to the WED025 configuration. This Tutorial covers:
