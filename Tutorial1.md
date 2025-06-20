@@ -1,7 +1,3 @@
----
-title: Tutorial 1
----
-
 # Tutorial 1 - Run WED025 in version 5.0.1
 
 ## 1. Prerequisities
