@@ -53,6 +53,8 @@ To set up this experiment, we make a copy of EXP01 from Tutorial 1 by:
 
 Then we edit the `namelist_cfg`: 
 - add in the `namberg` section, which should be empty, the following lines:    
+```
+{
 !-----------------------------------------------------------------------  
 &namberg       !   iceberg parameters                                   (default: OFF)  
 !-----------------------------------------------------------------------
@@ -65,17 +67,17 @@ Then we edit the `namelist_cfg`:
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !    
    sn_icb     =  'calving_example'              ,         -1.        ,'calvingmask',  .true.   , .true. , 'yearly'  , ''               , ''       , ''
 /
-
+}
+``` 
 with `ln_icebergs = .true.` icebergs are activated; by unsing `ln_use_calving          = .true.`we activte the use of a calving file; which is prescribed in `sn_icb`. How to create `calving_example.nc` is shown in Section 3 of this tutorial.
 
 
 To see the effect of this change we need to add iceberg output to our `file_def_nemo-oce.xml` by:  
-`  <!-- ice berg fields  -->   `
-
-`          <field field_ref="berg_melt"      name="berg_melt" />  ` 
-
-`          <field field_ref="berg_virtual_area"    name="berg_virtual_area"  />`  
-
+  <!-- ice berg fields  -->   
+          <field field_ref="berg_melt"      name="berg_melt" />  
+          <field field_ref="berg_virtual_area"    name="berg_virtual_area"  />
+}
+``` 
 ### 2.3 Quick check of the results
 
 When running a regional configuration with icebergs NEMO 5.0.1 they accumulate at the open boundaries. To fix this, one routine needs to be modified. This is shown in Tutorial 3. 
