@@ -17,17 +17,20 @@ To do this modification, we go into the newly configured WED025_dem2 folder:
 `cd <YOURNEMODIRECTORY>/cfgs/WED025_dem2`
 
 next we copy the routine from WORK into MY_SRC:  
-`cp WORK/icbthm.F90 MY_SRC/`
-== It is important that, if you want to modify a routine, it is copied into the MY_SRC! Otherwis you might accidently modify the original code, which can impact all configurations.==
+`cp WORK/icbthm.F90 MY_SRC/`  
+**It is important that, if you want to modify a routine, it is copied into the MY_SRC! Otherwis you might accidently modify the original code, which can impact all configurations.**
+
 
 To do this, the routine needs to be modified in two places, therefore we do the following steps:
 -Open the file icbthm.F90 in the WORK 
--Next, add in line 27
-`USE bdy_oce, ONLY : bdytmask,ln_bdy`
+-Next, add in line 27:  
+`USE bdy_oce, ONLY : bdytmask,ln_bdy`  
 it is always good to make a annotation where you added things yourself in the code, e.g., use: ! your initials
 - add in line 275 ( above the ELSE) :
-`ELSE IF(ln_bdy .AND. bdytmask(ii,ij)==0.) THEN ! Delete the berg if at bdy
-            CALL icb_utl_delete( first_berg, this )`
+```
+ELSE IF(ln_bdy .AND. bdytmask(ii,ij)==0.) THEN ! Delete the berg if at bdy
+            CALL icb_utl_delete( first_berg, this )
+```
 - save the file
 
 Now the configuration needs to be recompiled.
