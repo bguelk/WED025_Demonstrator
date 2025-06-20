@@ -155,7 +155,18 @@ Before the configuration is ready to run, the forcing files and the `domain_cfg.
 - Link all the WED025 demonstrator forcings netcdfs to this experiment folder:  
 `ln -s <YOURZORKDIR>/WED025_demonstrator_forcings/*nc .`
 
-- copy the namelist_cfg provided along with this demonstrator in this folder as well.
+- check in the `namelist_cfg` the section for the following lines:  
+!-----------------------------------------------------------------------  
+&namsbc_rnf    !   runoffs                                              (ln_rnf =T)  
+!-----------------------------------------------------------------------  
+   ln_rnf_icb   = .true.   !  read iceberg flux  
+   cn_dir      = './'      !  root directory for the runoff data location  
+   !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!  
+   !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !  
+   !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !  
+   sn_rnf      = 'WED025_runoff'         ,  -1               , 'runoff'  ,   .true.    , .true., 'yearly'  , ''               , ''       , ''  
+   sn_i_rnf    = 'WED025_icb'            ,  -1               , 'icb_melt',   .true.    ,.false., 'yearly'  , ''               , ''       , ''  
+/
 
 Now you have everything you need to run your regional configuration.
 For this you need to build a script to run on HPC. We suggest you use 32 MPI.
