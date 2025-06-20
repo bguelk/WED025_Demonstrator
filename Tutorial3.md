@@ -1,18 +1,6 @@
 # NEMO Demonstrator for WED025 in NEMO Version 5.0.1
 
-# Tutorial 2 - Add icebergs to WED025
-
-In this Tutorial, we add icebergs to the WED025 configuration. This Tutorial covers:
-- how to add icebergs 
--- in a test case 
--- using a calving file
-- how to prepare a calving file 
-
-NOTE: 
-
-## 1. Prerequisities
-- have a running WED025 configuration (see Tutorial 1)
-
+# Tutorial 2 - Modify a NEMO routine
 
 ## 1. Modify the code
 In this section, it is demonstrated how the code can be modified and recompiled. 
