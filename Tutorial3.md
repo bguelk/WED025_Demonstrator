@@ -33,14 +33,14 @@ ELSE IF(ln_bdy .AND. bdytmask(ii,ij)==0.) THEN ! Delete the berg if at bdy
 ```
 - save the file
 
-Now the configuration needs to be recompiled.
-Go to:
-`cd *yournemodirectory*`
+Now the configuration needs to be recompiled.  
+Go to:  
+`cd <YOURNEMODIRECTORY>`  
 and compile NEMO by: 
 `./makenemo -m ifort_SPIRIT -r WED025_dem2 -n WED025_dem2 -j 8`
 
-To validate if the modification is now in the code go to the WORK in WED025_dem2
-`cd cfgs/WED025_dem2/WORK`
+To validate if the modification is now in the code go to the WORK in WED025_dem2  
+`cd cfgs/WED025_dem2/WORK`  
 and open the icbthm.f90 and find the added lines.
 
 If the compilation failed, have a look at the routine provided along with the demonstrator.
