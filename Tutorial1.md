@@ -213,8 +213,16 @@ For this you need to build a script to run on HPC. We suggest you use 32 MPI.
 Suggestion: look at the supercomputer documentation or copy from a friend.
 
 As XIOS is in detached mode, when submitting the run, cpus for NEMO and XIOS3 need to be assigned in a bash-script.
-Here is an exemple for XXXXX:
-XXXXXX
+Here is an exemple for a simple bash-script for running NEMO with 4 cpus and XIOS with 1 cpu: 
+```
+#!/bin/sh
+#OPENMPI JOB
+#SBATCH --ntasks=5
+#SBATCH --time 4:00:00
+
+mpirun -np 4 ./nemo -np 1 ./xios_server.exe
+```
+The command `mpirun` is HPC dependent and can vary between machines.
 
 Now you can submit your job to run the simulation.
 
