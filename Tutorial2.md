@@ -71,7 +71,9 @@ with `ln_icebergs = .true.` icebergs are activated; by unsing `ln_use_calving   
 
 To see the effect of this change we need to add iceberg output to our `file_def_nemo-oce.xml` by:  
 `  <!-- ice berg fields  -->   `
+
 `          <field field_ref="berg_melt"      name="berg_melt" />  ` 
+
 `          <field field_ref="berg_virtual_area"    name="berg_virtual_area"  />`  
 
 ### 2.3 Quick check of the results
