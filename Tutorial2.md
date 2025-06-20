@@ -44,6 +44,7 @@ To see the effect of this change we need to add iceberg output to our `file_def_
           <field field_ref="berg_melt"      name="berg_melt" />   
           <field field_ref="berg_virtual_area"    name="berg_virtual_area"  />
 ``` 
+Now the experiment is ready to be run.  
 
 ### 2.2 Iceberg using calving files
 
@@ -77,6 +78,10 @@ To see the effect of this change we need to add iceberg output to our `file_def_
           <field field_ref="berg_melt"      name="berg_melt" />  
           <field field_ref="berg_virtual_area"    name="berg_virtual_area"  />
 ``` 
+
+Now the experiment is ready to be run. 
+
+
 ### 2.3 Quick check of the results
 
 When running a regional configuration with icebergs NEMO 5.0.1 they accumulate at the open boundaries. To fix this, one routine needs to be modified. This is shown in Tutorial 3. 
