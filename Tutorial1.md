@@ -74,21 +74,30 @@ Instead of providing a ready to use namelist, the namelist provided needs to be 
 your configuration:
 
 - Open namelist_cfg and change the experience name:  
+```
+{
 !-----------------------------------------------------------------------  
 &namrun ! parameters of the run  
 !-----------------------------------------------------------------------  
 cn_exp = "WED025" ! experience name
+}
+```
 
 - Rename to read in our files:  
+```
+{
 !-----------------------------------------------------------------------  
 &namdom ! space and time domain (bathymetry, mesh, timestep)  
 !-----------------------------------------------------------------------  
 cn_fcoord = 'coordinates_WED025.nc' ! external coordinates file (jphgr_msh = 0)  
 cn_topo = 'bathy_meter_WED025.nc' ! external topo file (nn_bathy =1/2)  
 cn_fisfd = 'bathy_meter_WED025.nc' ! external isf draft (nn_bathy =1 and ln_isfcav =.true.)  
-
+}
+```
 - Change the dimensions to match the bathymetry file and change the name of the
 configuration:  
+```
+{
 !-----------------------------------------------------------------------  
 &namcfg ! parameters of the configuration  
 !-----------------------------------------------------------------------  
@@ -99,14 +108,18 @@ jpkdta = 75 ! number of levels ( >= jpk )
 Ni0glo = 322 ! 1st dimension of global domain --> i =jpidta  
 Nj0glo = 328 ! 2nd - - --> j =jpjdta  
 jpkglo = 75  
-
+}
+```
 - Also change the minimum thickness of the ice shelf draft and water column thickness  
+```
+{
 !-----------------------------------------------------------------------  
 &namzgr_isf ! isf cavity geometry definition (default: OFF)  
 !-----------------------------------------------------------------------  
 rn_isfdep_min = 20. ! minimum isf draft tickness (if lower, isf draft set to this value)  
 rn_glhw_min = 0.01 ! minimum water column thickness to define the grounding line  
-
+}
+```
 Finally, we can create the `domain_cfg.nc` file:
 - Execute domain_cfg.exe:  
 `./make_domain_cfg.exe`
@@ -155,6 +168,8 @@ Before the configuration is ready to run, the forcing files and the `domain_cfg.
 `ln -s <YOURZORKDIR>/WED025_demonstrator_forcings/*nc .`
 
 - check in the `namelist_cfg` the section for the following lines:  
+```
+{
 !-----------------------------------------------------------------------  
 &namsbc_rnf    !   runoffs                                              (ln_rnf =T)  
 !-----------------------------------------------------------------------  
@@ -166,6 +181,9 @@ Before the configuration is ready to run, the forcing files and the `domain_cfg.
    sn_rnf      = 'WED025_runoff'         ,  -1               , 'runoff'  ,   .true.    , .true., 'yearly'  , ''               , ''       , ''  
    sn_i_rnf    = 'WED025_icb'            ,  -1               , 'icb_melt',   .true.    ,.false., 'yearly'  , ''               , ''       , ''  
 /
+}
+```
+
 
 Now you have everything you need to run your regional configuration.
 For this you need to build a script to run on HPC. We suggest you use 32 MPI.
