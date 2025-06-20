@@ -1,14 +1,6 @@
 # NEMO Demonstrator for WED025 in NEMO Version 5.0.1
 
-This demonstrator includes in a first section an update of the existing demonstrator for the regional NEMO configuration WED025 (https://zenodo.org/records/6817000) now using NEMO 5.0.1,  which is aimed at Beginners. In a second part, this demonstrator shows examples for advanced user, e.g.,  how to modify the code and how to create a new forcing field. 
-
-# 1.Section: Update of WED025 in NEMO version 5.0.1 (Beginners)
-
-Now you can submit your job to run the simulation.
-
-Once terminated, you now have run your first WED025 simulation.
-
-# 2.Section: Update the NEMO code (Advanced User)
+# Tutorial 2 - Modify a NEMO routine
 
 ## 1. Modify the code
 In this section, it is demonstrated how the code can be modified and recompiled. 
