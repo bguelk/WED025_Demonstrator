@@ -36,7 +36,7 @@ ELSE IF(ln_bdy .AND. bdytmask(ii,ij)==0.) THEN ! Delete the berg if at bdy
 Now the configuration needs to be recompiled.  
 Go to:  
 `cd <YOURNEMODIRECTORY>`  
-and compile NEMO by: 
+and compile NEMO by:   
 `./makenemo -m ifort_SPIRIT -r WED025_dem2 -n WED025_dem2 -j 8`
 
 To validate if the modification is now in the code go to the WORK in WED025_dem2  
@@ -50,12 +50,16 @@ If the compilation failed, have a look at the routine provided along with the de
 ### 2.1 Test the changes
 
 Now as the code is modified and compiled we can run a test.
+`cd <YOURNEMODIRECTORY>/cfgs/WED025_dem2/`
 
-Therefore, we set up a configuration as explained in Section 1;
+
+Therefore, we set up a configuration as explained in Tutorial 1, if that has been done before, copy one of the iceberg experiments here:
+`cp -r ../WED025_dem/EXP02_icbtest ./EXP02_icbtest `
 
 As the reference WED025 configuration does not include icebergs, we need to edit the namelist_cfg.
 - open the namlist_cfg
 - add in the namberg section, which should be empty the following lines:
+```
 !-----------------------------------------------------------------------
 &namberg       !   iceberg parameters                                   (default: OFF)
 !-----------------------------------------------------------------------
@@ -64,7 +68,7 @@ As the reference WED025 configuration does not include icebergs, we need to edit
    !                                 ! Put a test iceberg at each gridpoint in box (lon1,lon2,lat1,lat2)
    rn_test_box             = -80,  2, -80.0, -61.0
 /
-
+```
 with  ln_icebergs = .true. icebergs are activated in the configuration by unsing nn_test_icebergs =10 we prescirbe icebergs at all ocean points in the box given by rn_test_box.
 
 To see the effect of this change we need to add iceberg output to our file_def_nemo-oce.xml by:
