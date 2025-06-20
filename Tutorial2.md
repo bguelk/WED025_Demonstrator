@@ -36,7 +36,7 @@ Then we edit the `namelist_cfg`:
 
 with `ln_icebergs = .true.` icebergs are activated; by unsing `nn_test_icebergs =10` we prescirbe icebergs at all ocean points in the box given by `rn_test_box`.
 
-To see the effect of this change we need to add iceberg output to our `file_def_nemo-oce.xml` by:
+To see the effect of this change we need to add iceberg output to our `file_def_nemo-oce.xml` by:  
 `  <!-- ice berg fields  -->` 
 `          <field field_ref="berg_melt"      name="berg_melt" />`  
 `          <field field_ref="berg_virtual_area"    name="berg_virtual_area"  />`  
@@ -67,7 +67,7 @@ Then we edit the `namelist_cfg`:
 with `ln_icebergs = .true.` icebergs are activated; by unsing `ln_use_calving          = .true.`we activte the use of a calving file; which is prescribed in `sn_icb`. How to create `calving_example.nc` is shown in Section 3 of this tutorial.
 
 
-To see the effect of this change we need to add iceberg output to our `file_def_nemo-oce.xml` by:
+To see the effect of this change we need to add iceberg output to our `file_def_nemo-oce.xml` by:  
 `  <!-- ice berg fields  -->   `
 `          <field field_ref="berg_melt"      name="berg_melt" />  ` 
 `          <field field_ref="berg_virtual_area"    name="berg_virtual_area"  />`  
