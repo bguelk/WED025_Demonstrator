@@ -59,4 +59,5 @@ As no namelist parameter has to be modified this experiment can be run straight 
 
 ## 3. Compare Results
 
+NOTE: This section is still under development  - more to come soon
 
