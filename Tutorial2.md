@@ -38,7 +38,9 @@ with `ln_icebergs = .true.` icebergs are activated; by unsing `nn_test_icebergs 
 
 To see the effect of this change we need to add iceberg output to our `file_def_nemo-oce.xml` by:  
 `  <!-- ice berg fields  -->` 
+
 `          <field field_ref="berg_melt"      name="berg_melt" />  `  
+
 `          <field field_ref="berg_virtual_area"    name="berg_virtual_area"  />`   
 
 
