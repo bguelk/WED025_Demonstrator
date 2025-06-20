@@ -1,21 +1,22 @@
-# NEMO Demonstrator for WED025 in NEMO Version 5.0.1
-
+---
+title: Tutorial 2
+---
 # Tutorial 3 - Modify a NEMO routine
  
-In this Tutorial, it is shown how to 
-## 1. Modify the code
-In this section, it is demonstrated how the code can be modified and recompiled. 
+In this Tutorial, it is shown how to overcome the iceberg accumulation at the boundaries, which was shown in Section 2.3 in Tutorial 3. 
 
-To create a WED025 configuration with a modified code, first we compile a NEMO configuration basedon the reference configuration WED025 by:
+## 1. Modify the code
+When modifying the code, we need to recompile it. As we do not want to have several experiments with different source codes, we create a new configuration.
+Therefore, we first compile a NEMO configuration basedon the reference configuration WED025 by:
  
 `./makenemo -m ifort_SPIRIT -r WED025 -n WED025_dem2 -j 8 --add_key key_xios3`
 
-In this demonstrator, we want to modify the routine ==icbthm.F90==, this routine is representing the thermodynamics of icebergs. Within this file the icebergs are deleted when they are melted. We add that if icebergs are reaching the boundary of the domain are deleted. == This modification will be included in further NEMO versions ==
+The routine, which needs to be modified for removing the icebergs at the open boundary is **icbthm.F90**. This routine is representing the thermodynamics of icebergs. Within this file the icebergs are deleted when they are melted. We add that if icebergs are reaching the boundary of the domain they are deleted.  This modification will be included in further NEMO releases.
 
-To do this modification, we go into the newly configured WED025_dem2 folder
-`cd *yournemodirectory*/cfgs/WED025_dem2`
+To do this modification, we go into the newly configured WED025_dem2 folder:  
+`cd <YOURNEMODIRECTORY>/cfgs/WED025_dem2`
 
-next we copy from WORK the routine into MY_SRC:
+next we copy the routine from WORK into MY_SRC:  
 `cp WORK/icbthm.F90 MY_SRC/`
 == It is important that, if you want to modify a routine, it is copied into the MY_SRC! Otherwis you might accidently modify the original code, which can impact all configurations.==
 
