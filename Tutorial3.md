@@ -25,7 +25,7 @@ To do this, the routine needs to be modified in two places, therefore we do the 
 - Open the file icbthm.F90 in the WORK 
 - Next, add in line 27:  
 `USE bdy_oce, ONLY : bdytmask,ln_bdy`  
-it is always good to make a annotation where you added things yourself in the code, e.g., use: ! your initials
+it is always good to make an annotation where you added things yourself in the code, e.g., use: ! your initials
 - add in line 275 ( above the ELSE) :
 ```
 ELSE IF(ln_bdy .AND. bdytmask(ii,ij)==0.) THEN ! Delete the berg if at bdy
