@@ -15,11 +15,11 @@ title: Tutorial 1
 - Topography, coordinates, boundary conditions, ocean and sea ice initial conditions, runoff and atmospheric forcing.
 - Namelist to build the domain_cfg.nc file from the topography and coordinates file, and namelist for WED025 adapted to the demonstrator.
 
-## 3.How to set up the configuration
+## 3. Set up the configuration
 
 ### 3.1 Install and compile XIOS3
 
-Download the xios3 version with
+Download the XIOS3 version with
 
 `svn co (http://forge.ipsl.jussieu.fr/ioserver/svn/XIOS3/trunk) <YOURXIOSDIRECTORY>`
 
@@ -108,7 +108,7 @@ jpkglo = 75
 rn_isfdep_min = 20. ! minimum isf draft tickness (if lower, isf draft set to this value)  
 rn_glhw_min = 0.01 ! minimum water column thickness to define the grounding line  
 
-Finally, we can create the domain_cfg.nc file:
+Finally, we can create the `domain_cfg.nc` file:
 - Execute domain_cfg.exe:  
 `./make_domain_cfg.exe`
 
@@ -121,7 +121,7 @@ Domain_cfg.nc file is now created.
 
 ### 3.4 Using REBUILD_NEMO tool
 
-If the DOMAINcfg tool is run on one cpu, this step can be skipped, else the DOMAINcfg tool provides output fields for each used cpu, named `domain_cfdg_xxxx.nc`. These files can be combined to one file using the REBUILD_NEMO tool.
+If the DOMAINcfg tool is run on one cpu, this step can be skipped, else the DOMAINcfg tool provides output fields for each used cpu, named `domain_cfg_xxxx.nc`. These files can be combined to one file using the REBUILD_NEMO tool.
 
 First, go to your NEMO tool directory  
 `cd <YOURNEMODIRECTORY>/tools`
