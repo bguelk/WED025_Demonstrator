@@ -2,9 +2,8 @@
 title: Tutorial 1
 ---
 
-# Tutorial 1
+# Tutorial 1 - Run WED025 in version 5.0.1
 
-# 1.Section: Update of WED025 in NEMO version 5.0.1 (Beginners)
 ## 1. Prerequisities
 - Netcdf package installed on your HPC
 - XIOS package installed on your HPC
