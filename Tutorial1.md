@@ -21,11 +21,11 @@ title: Tutorial 1
 
 Download the xios3 version with
 
-`svn co (http://forge.ipsl.jussieu.fr/ioserver/svn/XIOS3/trunk) <YOURNEMODIRECTORY>`
+`svn co (http://forge.ipsl.jussieu.fr/ioserver/svn/XIOS3/trunk) <YOURXIOSDIRECTORY>`
 
 Setup your arch files (one for the environment (.env), another for the compiler (.fcm) and a last one for the path (.path) ):
 - cd arch to see examples of what this file looks like e.g. arch/arch-ifort_MESOIPSL.*
-- Then you compile XIOS (cd .. to *yourxiosdirname*) referring to your set of arch files (example here for ifort_MESOIPSL):
+- Then you compile XIOS (cd .. to `<YOURXIOSDIRECTORY>`) referring to your set of arch files (example here for ifort_MESOIPSL):
 
 `./make_xios --arch ifort_MESOIPSL --full --prod --job 8`
 
@@ -37,38 +37,35 @@ XIOS3 is now compiled
 
 Download NEMO version 5.0.1 by:
 
-`git clone --branch 5.0.1 (https://forge.nemo-ocean.eu/nemo/nemo.git) *yournemodirectory*`
+`git clone --branch 5.0.1 (https://forge.nemo-ocean.eu/nemo/nemo.git) <YOURNEMODIRECTORY>`
 
-After successfully downloading, add your arch file under *yournemodirectory* and link in arch-*.fcm in %XIOS_HOME the path to *yourxiosdirectory*.
+After successfully downloading, add your arch file under `<YOURNEMODIRECTORY>/arch` and link in arch-*.fcm in %XIOS_HOME the path to `<YOURXIOSDIRECTORY>`.
 
-Now, you can start compiling the configuration based on the reference configuration WED025, as we use xios3 the keys in the compilation need to be changed. The new configuration is called ‘WED025_dem’.
+Now, you can start compiling the configuration based on the reference configuration WED025, as we use XIOS3 the keys in the compilation need to be changed. The new configuration is called ‘WED025_dem’.
 To compile WED025_dem run the following line (ifort_SPIRIT is the used arch file):
 
 `./makenemo -m ifort_SPIRIT -r WED025 -n WED025_dem -j 8 --add_key key_xios3`
 
-Now the configuration is compiled
+Now the configuration is compiled.
 
 ### 3.3 Create domain_cfg file
 
-The domain_cfg.nc file describes the domain by providing information of the horizontal and vertical mesh, the bathymetry and ice shelf draft. To create the domain_cfg.nc file, the bathymetry, iceshelf draft and coordinates for the horizontal grid as well as the domain geometry needs to be known.
+The domain_cfg.nc file describes the domain by providing information of the horizontal and vertical mesh, the bathymetry and ice shelf draft. To create the `domain_cfg.nc` file, the bathymetry, iceshelf draft and coordinates for the horizontal grid as well as the domain geometry needs to be known.
 
-To create a domain_cfg.nc file, the DOMAINcfg tool can be used. Therefore, this tool needs to be compiled.
+To create a `domain_cfg.nc` file, the DOMAINcfg tool can be used. Therefore, this tool needs to be compiled.
 First, go into the NEMO tool directory:
-`cd yournemodirectory/tools`
+`cd <YOURNEMODIRECTORY>/tools`
 Then compile the DOMAINcfg tool using the same arch file as in the NEMO compilation (here: ifort_SPIRIT):
 `./maketools -m ifort_SPIRIT -n DOMAINcfg`
 
 The DOMAINcfg tool is now compiled.
 
-The next step is to build the domain_cfg.nc file. To create this file from the provided information:
+The next step is to build the `domain_cfg.nc` file. To create this file from the provided information:
 - Go back to your forcing directory, WED025_demonstrator_forcings, and create your own DOMAIN Folder, e.g. mkdir DOMAIN_WED025
-- Then from the DOMAINcfg tools folder copy or link the following into your local DOMAIN_WED025 directory:
-
-`ln -s $yourWORKdir/yournemodirname/tools/DOMAINcfg/BLD/bin/make_domain_cfg.exe .`
- 
-`ln -s $yourWORKdir/yournemodirname/tools/DOMAINcfg/BLD/bin/dom_doc.exe .`
-
-`cp $yourWORKdir/yournemodirname/tools/DOMAINcfg/namelist_ref .`
+- Then from the DOMAINcfg tools folder copy or link the following into your local DOMAIN_WED025 directory:  
+`ln -s <YOURWORKDIRECTORY>/<YOURNEMODIRECTORY>/tools/DOMAINcfg/BLD/bin/make_domain_cfg.exe .`  
+`ln -s <YOURWORKDIRECTORY>/<YOURNEMODIRECTORY>/tools/DOMAINcfg/BLD/bin/dom_doc.exe .`  
+`cp <YOURWORKDIRECTORY>/<YOURNEMODIRECTORY>/tools/DOMAINcfg/namelist_ref .`
 
 - From your forcing folder, copy namelist_cfg_dom, bathy_meter_WED025.nc and
 coordinates_WED025.nc from your forcings folder into your DOMAIN_WED025
@@ -127,36 +124,36 @@ Domain_cfg.nc file is now created.
 If the DOMAINcfg tool is run on one cpu, this step can be skipped, else the DOMAINcfg tool provides output fields for each used cpu, named `domain_cfdg_xxxx.nc`. These files can be combined to one file using the REBUILD_NEMO tool.
 
 First, go to your NEMO tool directory  
-`cd *yournemodirectory*/tools`
+`cd <YOURNEMODIRECTORY>/tools`
 
 Then compile the tool in a similar way as the DOMAINcfg tool has been compiled and use the same arch file as before:  
 `./maketools -m ifort_SPIRIT -n REBUILD_NEMO`
 
 After compilation of the REBUILD_NEMO tool, the `domain_cfg_xxxx.nc` can be combined.
 cd to the DOMAIN_WED025 folder, where you have the `domain_cfg_xxxx.nc` files and combine them to one file by:  
-` *yourWORKdir*/*yournemodirname*/tools/REBUILD_NEMO/rebuild_nemo domain_cfg *X* `
+` <YOURWORKDIRECTORY>/<YOURNEMODIRECTORY>/tools/REBUILD_NEMO/rebuild_nemo domain_cfg <NO_CPUs> `
 
-where *X* is the number of cpus used in the domain file. This will generate one filed called `domain_cfg.nc`.
+where `<NO_CPUs>` is the number of cpus used in the domain file. This will generate one filed called `domain_cfg.nc`.
 
-NOTE: This tool can also be used for other files which are generatedon several cpus, like mesh_mask, restart files. Those files can be identified by name_xxxx.nc, where xxxx is starting from 0000 and increasing up to the numbers of cpu used.
+NOTE: This tool can also be used for other files which are generatedon several cpus, like mesh_mask, restart files. Those files can be identified by *name_xxxx.nc*, where *xxxx* is starting from 0000 and increasing up to the numbers of cpu used.
 
 ### 3.5 Run NEMO
 
 Now, everything is ready and the configuration can be run.
 Go to your demonstrator folder:  
-`cd *yournemodir*/cfgs/WED025_dem/`
+`cd <YOURNEMODIRECTORY>/cfgs/WED025_dem/`
 
 copy the experiment folder which is already there, here EXP00, to keep the initial files safe:  
 ` cp -r EXP00 EXP01`
 
 Go into EXP01, where we will run the configuration.
-Before the configuration is ready to run, the forcing files and the domain_cfg.nc needs to be copied or linked in the folder.
+Before the configuration is ready to run, the forcing files and the `domain_cfg.nc` needs to be copied or linked in the folder.
 
 - Link domain_cfg.nc here:  
-`ln -s *pathtoyourDOMAIN_WED025*/domain_cfg.nc .
+`ln -s <PATHTO_DOMAIN_WED025>/domain_cfg.nc .`
 
 - Link all the WED025 demonstrator forcings netcdfs to this experiment folder:  
-`ln -s $yourWORKdir/WED025_demonstrator_forcings/*nc .`
+`ln -s <YOURZORKDIR>/WED025_demonstrator_forcings/*nc .`
 
 - copy the namelist_cfg provided along with this demonstrator in this folder as well.
 
@@ -168,7 +165,7 @@ Before you launch the job, you need to change the last timestep of the simulatio
 match the length of the simulation you want to do. In this case we will do a one month
 
 Example how to calculate your end timestep:
-In this configuration we use a timestep of 2400 seconds, given in the namelist_cfg by:  
+In this configuration we use a timestep of 2400 seconds, given in the `namelist_cfg` by:  
 `rn_Dt = 2400.`
 
 So we want 31 days x (24 x 60 x 60) = 2678400 seconds.
@@ -177,19 +174,19 @@ Now divide by the timestep 2678400 / 2400 = 1116
 Edit namelist_cfg:  
 `nn_itend = 1116 ! last time step`
 
-For now, we use 5-daily output, if other output frequencies are wished this can be modified in the file_def_nemo-oce.xml and file_def_nemo-ice.xml. Note that field_def is where all the output
+For now, we use 5-daily output, if other output frequencies are wished this can be modified in the `file_def_nemo-oce.xml` and `file_def_nemo-ice.xml`. Note that `field_def_*` is where all the output
 variables available are listed and which frequency those are outputted.
-For example to change the ouput to monthly output, replace each mention of 5d with 1mo in file_def_nemo-oce.xml and file_def_nemo-ice.xml and at the end of the script, remove this line:  
+For example to change the ouput to monthly output, replace each mention of 5d with 1mo in `file_def_nemo-oce.xml` and `file_def_nemo-ice.xml` and at the end of the script, remove this line:  
 `<file_group id="1m" output_freq="1mo" output_level="10" enabled=".TRUE."/> <!-- real monthly files →`
 
- == WHAT ABOUT XIOS?==
-For the use of XIOS3, NEMO and XIOS needs to be run in detached mode.
-This means, in the file iodef.xml the following line needs to be:  
+
+For the use of XIOS3, NEMO and XIOS3 needs to be run in detached mode.
+This means, in the file` iodef.xml` the following line needs to be:  
 ` <variable id="using_server"              type="bool">true</variable>`  
 and the following line needs to be removed or commented:  
 ` <variable id="oasis_codes_id"            type="string" >oceanx</variable>`
 
-When submitting the run, cpus for NEMO and XIOS need to be assigned in a bash-script.
+When submitting the run, cpus for NEMO and XIOS3 need to be assigned in a bash-script.
 
 Now you can submit your job to run the simulation.
 
