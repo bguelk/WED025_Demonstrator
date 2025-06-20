@@ -1,6 +1,3 @@
----
-title: Tutorial 3
----
 # Tutorial 3 - Modify a NEMO routine
  
 In this Tutorial, it is shown how to overcome the iceberg accumulation at the boundaries, which was shown in Section 2.3 in Tutorial 3. 
