@@ -57,13 +57,12 @@ Then we edit the `namelist_cfg`:
 &namberg       !   iceberg parameters                                   (default: OFF)  
 !-----------------------------------------------------------------------
    ln_icebergs = .true.      ! activate iceberg floats (force =F with "key_agrif")  
-   ln_use_calving          = .true. ! Use calving data even when nn_test_icebergs > 0    
-   rn_speed_limit          = 0.      ! CFL speed limit for a berg (safe value is 0.4, see #2581)       
+   nn_test_icebergs=-1
    cn_dir      = './'      !  root directory for the calving data location  
    !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!    
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !    
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !    
-   sn_icb     =  'calving_example'              ,         -1.        ,'calvingmask',  .true.   , .true. , 'yearly'  , ''               , ''       , ''
+   sn_icb     =  'calving_example'              ,         -12.        ,'calvingmask',  .true.   , .true. , 'yearly'  , ''               , ''       , ''
 /
 ``` 
 with `ln_icebergs = .true.` icebergs are activated; by unsing `ln_use_calving          = .true.`we activte the use of a calving file; which is prescribed in `sn_icb`. How to create `calving_example.nc` is shown in Section 3 of this tutorial.
