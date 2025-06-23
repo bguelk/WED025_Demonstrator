@@ -50,33 +50,7 @@ To run WED025 with an iceberg calving file, we need to edit the `namelist_cfg`, 
 To set up this experiment, we make a copy of EXP01 from Tutorial 1 by:          
 `cp -r EXP01 EXP02_icbcalving`
 
-Then we edit the `namelist_cfg`: 
-- add in the `namberg` section, which should be empty, the following lines:    
-```
-!-----------------------------------------------------------------------  
-&namberg       !   iceberg parameters                                   (default: OFF)  
-!-----------------------------------------------------------------------
-   ln_icebergs = .true.      ! activate iceberg floats (force =F with "key_agrif")  
-   nn_test_icebergs=-1
-   cn_dir      = './'      !  root directory for the calving data location  
-   !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!    
-   !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !    
-   !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !    
-   sn_icb     =  'calving_example'              ,         -12.        ,'calvingmask',  .true.   , .true. , 'yearly'  , ''               , ''       , ''
-/
-``` 
-with `ln_icebergs = .true.` icebergs are activated; by using `nn_test_icebergs=-1` we activte the use of a calving file; which is prescribed in `sn_icb`. How to create `calving_example.nc` is shown in Section 3 of this tutorial.
-
-
-To see the effect of this change we need to add iceberg output to our `file_def_nemo-oce.xml` by:  
-```
-  <!-- ice berg fields  -->   
-          <field field_ref="berg_melt"      name="berg_melt" />  
-          <field field_ref="berg_virtual_area"    name="berg_virtual_area"  />
-``` 
-
-Now the experiment is ready to be run. 
-
+NOTE:  This section is still under development - more to come soon
 
 ### 2.3 Quick check of the results
 
