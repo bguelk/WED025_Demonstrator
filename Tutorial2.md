@@ -65,7 +65,7 @@ Then we edit the `namelist_cfg`:
    sn_icb     =  'calving_example'              ,         -12.        ,'calvingmask',  .true.   , .true. , 'yearly'  , ''               , ''       , ''
 /
 ``` 
-with `ln_icebergs = .true.` icebergs are activated; by unsing `ln_use_calving          = .true.`we activte the use of a calving file; which is prescribed in `sn_icb`. How to create `calving_example.nc` is shown in Section 3 of this tutorial.
+with `ln_icebergs = .true.` icebergs are activated; by using `nn_test_icebergs=-1` we activte the use of a calving file; which is prescribed in `sn_icb`. How to create `calving_example.nc` is shown in Section 3 of this tutorial.
 
 
 To see the effect of this change we need to add iceberg output to our `file_def_nemo-oce.xml` by:  
