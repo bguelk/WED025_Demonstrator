@@ -203,7 +203,7 @@ This means, in the file` iodef.xml` the following line needs to be:
 ` <variable id="using_server"              type="bool">true</variable>`  
 and the following line needs to be removed or commented:  
 ` <variable id="oasis_codes_id"            type="string" >oceanx</variable>`
-and xios_server.exe needs to be copied into the folder of the configuration:  
+and xios_server.exe needs to be copied into the folder of the configuration:    
 ` cp <YOURXIOSDIRECTORY>/bin/xios_server.exe ./ `
 
 Now you have everything you need to run your regional configuration.
