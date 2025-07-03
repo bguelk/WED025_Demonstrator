@@ -3,8 +3,8 @@
 In this tutorial, it is shown how to add icebergs to the WED025 configuration. This Tutorial covers:
 - how to add icebergs   
   - in a test case  
-  - using a calving file  
-- how to prepare a calving file 
+  - using a calving file (work in progress)  
+- how to prepare a calving file (work in progress)
 
 DISCLAIMER: The iceberg tests shown here are just examples and not fully realistic. The WED025 is set up using a iceberg melt climatology for icebergs, but when adding icebers, as shown in this tutorial, freshwater fluxes from icebergs will be double counted (climatology and icebergs). For more realistic results, the climatological forcing used in 'icb_melt' in 'WED025_icb*.nc' needs to be corrected for icebergs calved in the regional configuration.
 
