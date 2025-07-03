@@ -58,7 +58,7 @@ The domain_cfg.nc file describes the domain by providing information of the hori
 
 To create a `domain_cfg.nc` file, the DOMAINcfg tool can be used. Therefore, this tool needs to be compiled.
 First, go into the NEMO tool directory:
-`cd <YOURNEMODIRECTORY>/tools`
+`cd <YOURNEMODIRECTORY>/tools` 
 Then compile the DOMAINcfg tool using the same arch file as in the NEMO compilation (here: ifort_SPIRIT):
 `./maketools -m MY_COMPUTER -n DOMAINcfg`
 
@@ -163,7 +163,7 @@ Before the configuration is ready to run, the forcing files and the `domain_cfg.
 `ln -s <PATHTO_DOMAIN_WED025>/domain_cfg.nc .`
 
 - Link all the WED025 demonstrator forcings netcdfs to this experiment folder:  
-`ln -s <YOURZORKDIR>/WED025_demonstrator_forcings/*nc .`
+`ln -s <YOURWORKDIR>/WED025_demonstrator_forcings/*nc .`
 
 - check in the `namelist_cfg` the section for the following lines:  
 ```
@@ -203,6 +203,8 @@ This means, in the file` iodef.xml` the following line needs to be:
 ` <variable id="using_server"              type="bool">true</variable>`  
 and the following line needs to be removed or commented:  
 ` <variable id="oasis_codes_id"            type="string" >oceanx</variable>`
+and xios_server.exe needs to be copied into the folder of the configuration:  
+` cp <YOURXIOSDIRECTORY>/bin/xios_server.exe ./ `
 
 Now you have everything you need to run your regional configuration.
 For this you need to build a script to run on HPC. We suggest you use 32 MPI.
