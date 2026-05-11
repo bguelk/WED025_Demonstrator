@@ -18,6 +18,8 @@ All the needed files can be found [here](https://zenodo.org/records/6817000) in 
 The file can be dowloaded with
 `wget https://zenodo.org/records/6817000/files/WED025_demonstrator_forcings.tar.zip`
 
+Once done, unzip it: `tar -xzvf WED025_demonstrator_forcings.tar.zip`
+
 ## 3. Set up the configuration
 
 ### 3.1 Install and compile XIOS3
@@ -27,13 +29,13 @@ Download the XIOS3 version with
 `svn co http://forge.ipsl.jussieu.fr/ioserver/svn/XIOS3/trunk <YOURXIOSDIRECTORY>`
 
 Setup your arch files (one for the environment (.env), another for the compiler (.fcm) and a last one for the path (.path) ):
-- cd arch to see examples of what this file looks like e.g. arch/arch-ifort_MESOIPSL.*.
+- `cd <YOURXIOSDIRECTORY>/arch` to see examples of what this file looks like e.g. arch/arch-ifort_MESOIPSL.*.
 - setup your arch files (`arch/arch-MY_COMPUTER.*`) depending of your environement, compiler and computer.
-- Then you compile XIOS (cd .. to `<YOURXIOSDIRECTORY>`) referring to your set of arch files:
+- Then you compile XIOS (`cd ..` to `<YOURXIOSDIRECTORY>`) referring to your set of arch files:
 
 `./make_xios --arch MY_COMPUTER --full --prod --job 8`
 
-- Now cd .. back to your workdir
+- Now `cd ..` back to your workdir
 
 XIOS3 is now compiled
 
@@ -43,7 +45,7 @@ Download NEMO version 5.0.1 by:
 
 `git clone --branch 5.0.1 https://forge.nemo-ocean.eu/nemo/nemo.git <YOURNEMODIRECTORY>`
 
-After successfully downloading, add your arch file (`arch/arch-MY_COMPUTER.fcm`) under `<YOURNEMODIRECTORY>/arch` and set up the correct path for netcdf, HDF5 and XIOS (%NCDF_HOME, %HDF5_HOME and %XIOS_HOME). Examples are available in the directory `arch`
+After successfully downloading, `cd <YOURNEMODIRECTORY>` and add your arch file (`arch/arch-MY_COMPUTER.fcm`) under `<YOURNEMODIRECTORY>/arch` and set up the correct path for netcdf, HDF5 and XIOS (%NCDF_HOME, %HDF5_HOME and %XIOS_HOME) or used a pre-existing one if your HPC already available. Examples are available in the directory `arch`
 
 Now, you can start compiling the configuration based on the reference configuration WED025, as we use XIOS3 the keys in the compilation need to be changed. The new configuration is called ‘WED025_dem’.
 To compile WED025_dem run the following line (ifort_SPIRIT is the used arch file):
@@ -58,29 +60,35 @@ The domain_cfg.nc file describes the domain by providing information of the hori
 
 To create a `domain_cfg.nc` file, the DOMAINcfg tool can be used. Therefore, this tool needs to be compiled.
 First, go into the NEMO tool directory:
-`cd <YOURNEMODIRECTORY>/tools` 
+`cd tools` 
 Then compile the DOMAINcfg tool using the same arch file as in the NEMO compilation (here: ifort_SPIRIT):
 `./maketools -m MY_COMPUTER -n DOMAINcfg`
 
 The DOMAINcfg tool is now compiled.
 
 The next step is to build the `domain_cfg.nc` file. To create this file from the provided information:
-- Go back to your forcing directory, WED025_demonstrator_forcings, and create your own DOMAIN Folder, e.g. mkdir DOMAIN_WED025
-- Then from the DOMAINcfg tools folder copy or link the following into your local DOMAIN_WED025 directory:  
-`ln -s <YOURWORKDIRECTORY>/<YOURNEMODIRECTORY>/tools/DOMAINcfg/BLD/bin/make_domain_cfg.exe .`  
-`ln -s <YOURWORKDIRECTORY>/<YOURNEMODIRECTORY>/tools/DOMAINcfg/BLD/bin/dom_doc.exe .`  
-`cp <YOURWORKDIRECTORY>/<YOURNEMODIRECTORY>/tools/DOMAINcfg/namelist_ref .`
+- Go back to your forcing directory (`WED025_demonstrator_forcings`) and create your own DOMAIN Folder, e.g. `mkdir DOMAIN_WED025 ; cd DOMAIN_WED025`
+- Then from the DOMAIN_WED025 folder copy or link the following into your local DOMAIN_WED025 directory:
+```
+ln -s <YOURWORKDIRECTORY>/<YOURNEMODIRECTORY>/tools/DOMAINcfg/BLD/bin/make_domain_cfg.exe . 
+ln -s <YOURWORKDIRECTORY>/<YOURNEMODIRECTORY>/tools/DOMAINcfg/BLD/bin/dom_doc.exe .
+cp <YOURWORKDIRECTORY>/<YOURNEMODIRECTORY>/tools/DOMAINcfg/namelist_ref .
+```
 
-- From your forcing folder, copy namelist_cfg_dom, bathy_meter_WED025.nc and
-coordinates_WED025.nc from your forcings folder into your DOMAIN_WED025
-subfolder
-- Then in your subfolder (DOMAIN_WED025) rename namelist_cfg_dom namelist_cfg (`mv namelist_cfg_dom namelist_cfg`)
+- Then copy namelist_cfg_dom, bathy_meter_WED025.nc and
+coordinates_WED025.nc from your forcings folder into your DOMAIN_WED025 subfolder:
+```
+cp ../namelist_cfg_dom .
+cp ../bathy_meter_WED025.nc .
+cp ../coordinates_WED025.nc .
+```
+
+- Then rename namelist_cfg_dom namelist_cfg (`mv namelist_cfg_dom namelist_cfg`)
 Instead of providing a ready to use namelist, the namelist provided needs to be personalized to
 your configuration:
 
 - Open namelist_cfg and change the experience name:  
 ```
-
 !-----------------------------------------------------------------------  
 &namrun ! parameters of the run  
 !-----------------------------------------------------------------------  
@@ -145,7 +153,7 @@ cd to the DOMAIN_WED025 folder, where you have the `domain_cfg_xxxx.nc` files an
 
 where `<NO_CPUs>` is the number of cpus used in the domain file. This will generate one filed called `domain_cfg.nc`.
 
-NOTE: This tool can also be used for other files which are generatedon several cpus, like mesh_mask, restart files. Those files can be identified by *name_xxxx.nc*, where *xxxx* is starting from 0000 and increasing up to the numbers of cpu used.
+NOTE: This tool can also be used for other files which are generated on several cpus, like mesh_mask, restart files. Those files can be identified by *name_xxxx.nc*, where *xxxx* is starting from 0000 and increasing up to the numbers of cpu used.
 
 ### 3.5 Run NEMO
 
@@ -156,7 +164,7 @@ Go to your demonstrator folder:
 copy the experiment folder which is already there, here EXP00, to keep the initial files safe:  
 ` cp -r EXP00 EXP01`
 
-Go into EXP01, where we will run the configuration.
+Go into EXP01 (`cd EXP01`), where we will run the configuration.
 Before the configuration is ready to run, the forcing files and the `domain_cfg.nc` needs to be copied or linked in the folder.
 
 - Link domain_cfg.nc here:  
@@ -165,7 +173,7 @@ Before the configuration is ready to run, the forcing files and the `domain_cfg.
 - Link all the WED025 demonstrator forcings netcdfs to this experiment folder:  
 `ln -s <YOURWORKDIR>/WED025_demonstrator_forcings/*nc .`
 
-- check in the `namelist_cfg` the section for the following lines:  
+- Update the `namelist_cfg` the section with the following lines in the block `namsbc_rnf` to activate the reading of the iceberg climatology:  
 ```
 !-----------------------------------------------------------------------  
 &namsbc_rnf    !   runoffs                                              (ln_rnf =T)  
@@ -206,7 +214,7 @@ and the following line needs to be removed or commented:
 
 
 Last thing to do, is to copy the `xios_server.exe` into the folder of the configuration:    
-` cp <YOURXIOSDIRECTORY>/bin/xios_server.exe ./ `
+`cp <YOURXIOSDIRECTORY>/bin/xios_server.exe ./`
 
 Now you have everything you need to run your regional configuration.
 For this you need to build a script to run on HPC. We suggest you use 32 MPI.
